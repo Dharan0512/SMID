@@ -16,6 +16,8 @@ type MagneticButtonProps = {
   onClick?: (e: MouseEvent<HTMLElement>) => void;
   as?: "button" | "a";
   href?: string;
+  target?: string;
+  rel?: string;
 };
 
 /**
@@ -30,6 +32,8 @@ export default function MagneticButton({
   onClick,
   as = "button",
   href,
+  target,
+  rel,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -71,6 +75,8 @@ export default function MagneticButton({
     >
       <Tag
         href={href}
+        target={target}
+        rel={rel}
         onClick={onClick}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.96 }}

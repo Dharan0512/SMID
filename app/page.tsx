@@ -120,6 +120,13 @@ const reviews = [
 /*                              Shared variants                               */
 /* -------------------------------------------------------------------------- */
 
+// WhatsApp Business contact — +91 70924 45892 in wa.me international format.
+const WHATSAPP_NUMBER = "917092445892";
+
+function whatsappLink(message: string) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
 const fadeUp: Variants = {
@@ -303,7 +310,7 @@ function Hero() {
             className="mb-8 flex items-center gap-4 font-sans text-[11px] uppercase tracking-[0.3em] text-stone"
           >
             <span className="h-px w-12 bg-clay" />
-            Interior Decorators — Chennai, since 2018
+            Interior Decorators — Chennai, since 2013
           </motion.div>
 
           <h1 className="font-serif text-[14vw] font-light leading-[0.92] tracking-tightest text-ink md:text-[10.5vw] lg:text-[8.5vw]">
@@ -522,16 +529,16 @@ function Philosophy() {
 /* -------------------------------------------------------------------------- */
 
 function ProjectCard({ project }: { project: (typeof projects)[number] }) {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
   const [hovered, setHovered] = useState(false);
 
-  // Floating "View Case Study" button that tracks the cursor inside the card.
+  // Floating "Enquire" button that tracks the cursor inside the card.
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const xSpring = useSpring(x, { damping: 20, stiffness: 250, mass: 0.3 });
   const ySpring = useSpring(y, { damping: 20, stiffness: 250, mass: 0.3 });
 
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: MouseEvent<HTMLAnchorElement>) => {
     const el = cardRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -547,12 +554,18 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
       viewport={{ once: true, margin: "-80px" }}
       className={`group relative ${project.span}`}
     >
-      <div
+      <a
         ref={cardRef}
+        href={whatsappLink(
+          `Hello SMID, I'm interested in something like your "${project.title}" (${project.category}). Could we discuss?`
+        )}
+        target="_blank"
+        rel="noopener noreferrer"
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className={`relative w-full cursor-none overflow-hidden rounded-[2px] bg-sand ${project.aspect}`}
+        aria-label={`Enquire about ${project.title} on WhatsApp`}
+        className={`relative block w-full cursor-none overflow-hidden rounded-[2px] bg-sand ${project.aspect}`}
       >
         <motion.div
           className="absolute inset-0 h-full w-full"
@@ -588,15 +601,17 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
               opacity: hovered ? 1 : 0,
             }}
             transition={{ type: "spring", stiffness: 350, damping: 22 }}
-            className="flex h-28 w-28 items-center justify-center rounded-full bg-bone text-center font-sans text-[10px] uppercase leading-tight tracking-[0.2em] text-ink"
+            className="flex h-28 w-28 flex-col items-center justify-center gap-1 rounded-full bg-bone text-center font-sans text-[10px] uppercase leading-tight tracking-[0.2em] text-ink"
           >
-            View
-            <br />
-            Case Study
-            <ArrowUpRight className="ml-1 h-3 w-3" />
+            <span>
+              Enquire
+              <br />
+              on WhatsApp
+            </span>
+            <ArrowUpRight className="h-3 w-3" />
           </motion.div>
         </motion.div>
-      </div>
+      </a>
 
       {/* Caption */}
       <div className="mt-5 flex items-start justify-between">
@@ -791,7 +806,11 @@ function Footer() {
         <div className="my-16">
           <MagneticButton
             as="a"
-            href="tel:07092445892"
+            href={whatsappLink(
+              "Hello SMID, I'd like to discuss an interior project."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
             strength={0.5}
             className="group flex h-44 w-44 items-center justify-center rounded-full border border-bone/30 font-sans text-xs uppercase tracking-[0.25em] text-bone md:h-56 md:w-56"
           >

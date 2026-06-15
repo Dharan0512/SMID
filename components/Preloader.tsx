@@ -116,7 +116,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
           {/* Top row */}
           <div className="flex items-center justify-between font-sans text-[11px] uppercase tracking-[0.3em] text-bone/60">
             <span>Est. Chennai</span>
-            <span>Since 2018</span>
+            <span>Since 2013</span>
           </div>
 
           {/* Center — rotating words, then the full studio name */}
