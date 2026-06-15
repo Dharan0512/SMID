@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bone: #f4f0e9;
+  --ink: #141210;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* Native smooth scroll is disabled — we drive scrolling with Framer Motion. */
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--bone);
+  color: var(--ink);
+  font-feature-settings: "ss01", "ss02";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Hide the native scrollbar for a cleaner kinetic-scroll canvas. */
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
