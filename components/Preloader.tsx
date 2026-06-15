@@ -147,7 +147,13 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
               ) : (
                 <motion.h1
                   key="name"
-                  className="text-center font-serif text-[8.5vw] font-light leading-[1.08] tracking-tightest md:text-[5.2vw]"
+                  // Pin a moderate optical size + weight so Fraunces' thin `e`
+                  // crossbar stays solid at display size (otherwise `e` → `c`).
+                  style={{
+                    fontVariationSettings:
+                      "'wght' 440, 'opsz' 34, 'SOFT' 0, 'WONK' 0",
+                  }}
+                  className="text-center font-serif text-[8.5vw] leading-[1.08] tracking-tightest md:text-[5.2vw]"
                 >
                   <span className="block overflow-hidden pb-[0.12em]">
                     <motion.span
